@@ -1,4 +1,5 @@
 ﻿using ControleDeContatos.Enum;
+using ControleDeContatos.Helper;
 using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeContatos.Models
@@ -22,12 +23,31 @@ namespace ControleDeContatos.Models
         public DateTime DataCadastro { get; set; }
         public DateTime? DataAtualizacao { get; set; }
 
+        public virtual List<ContatoModel> Contatos { get; set; }
+
         [Required(ErrorMessage = "Selecione o perfil do usuário")]
         public PerfilEnum? Perfil { get; set; }
 
         public bool SenhaValida(string senha)
         {
-            return Senha == senha;
+            return Senha == senha.GerarHash();
+        }
+
+        public void SetSenhaHash()
+        {
+            Senha = Senha.GerarHash();
+        }
+
+        public void SetNovaSenha(string novaSenha)
+        {
+            Senha = novaSenha.GerarHash();
+        }
+
+        public string GerarNovaSenha()
+        {
+            string novaSenha = Guid.NewGuid().ToString().Substring(0, 8);
+            Senha = novaSenha.GerarHash();
+            return novaSenha;
         }
     }
 }

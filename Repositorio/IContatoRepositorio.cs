@@ -7,7 +7,7 @@ namespace ControleDeContatos.Repositorio
     {
         ContatoModel ListarPorId(int id);
 
-        List<ContatoModel> BuscarTodosRegistros();
+        List<ContatoModel> BuscarTodosRegistros(int usuarioId);
 
         ContatoModel Adicionar(ContatoModel contato);
 
